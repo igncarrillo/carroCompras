@@ -16,7 +16,7 @@
     "otherModules": [],
     "pages": [],
     "creationTimestamp": 1635897290382,
-    "serviceDiscoveryType": "no",
+    "serviceDiscoveryType": false,
     "reactive": false,
     "authenticationType": "jwt",
     "packageName": "ar.edu.um.products",
@@ -41,6 +41,13 @@
     "clientTheme": "none",
     "clientThemeVariant": "",
     "withAdminUi": true,
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["Product", "Distributor"],
+    "lastLiquibaseTimestamp": 1635901663000,
+    "appsFolders": ["products"],
+    "directoryPath": "../",
+    "gatewayType": "SpringCloudGateway",
+    "clusteredDbApps": {},
+    "monitoring": "no"
   }
 }

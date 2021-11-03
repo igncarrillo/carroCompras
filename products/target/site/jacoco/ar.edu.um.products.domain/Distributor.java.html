@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Distributor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Products</a> &gt; <a href="index.source.html" class="el_package">ar.edu.um.products.domain</a> &gt; <span class="el_source">Distributor.java</span></div><h1>Distributor.java</h1><pre class="source lang-java linenums">package ar.edu.um.products.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+/**
+ * A Distributor.
+ */
+@Entity
+@Table(name = &quot;distributor&quot;)
+<span class="fc" id="L15">public class Distributor implements Serializable {</span>
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id&quot;)
+    private Long id;
+
+    @NotNull
+    @Column(name = &quot;name&quot;, nullable = false)
+    private String name;
+
+    @Column(name = &quot;description&quot;)
+    private String description;
+
+    @NotNull
+    @Column(name = &quot;is_enabled&quot;, nullable = false)
+    private Boolean isEnabled;
+
+<span class="fc" id="L35">    @OneToMany(mappedBy = &quot;distributor&quot;)</span>
+    @JsonIgnoreProperties(value = { &quot;distributor&quot; }, allowSetters = true)
+    private Set&lt;Product&gt; products = new HashSet&lt;&gt;();
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Long getId() {
+<span class="fc" id="L42">        return this.id;</span>
+    }
+
+    public Distributor id(Long id) {
+<span class="nc" id="L46">        this.setId(id);</span>
+<span class="nc" id="L47">        return this;</span>
+    }
+
+    public void setId(Long id) {
+<span class="fc" id="L51">        this.id = id;</span>
+<span class="fc" id="L52">    }</span>
+
+    public String getName() {
+<span class="fc" id="L55">        return this.name;</span>
+    }
+
+    public Distributor name(String name) {
+<span class="nc" id="L59">        this.setName(name);</span>
+<span class="nc" id="L60">        return this;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L64">        this.name = name;</span>
+<span class="nc" id="L65">    }</span>
+
+    public String getDescription() {
+<span class="fc" id="L68">        return this.description;</span>
+    }
+
+    public Distributor description(String description) {
+<span class="nc" id="L72">        this.setDescription(description);</span>
+<span class="nc" id="L73">        return this;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="nc" id="L77">        this.description = description;</span>
+<span class="nc" id="L78">    }</span>
+
+    public Boolean getIsEnabled() {
+<span class="fc" id="L81">        return this.isEnabled;</span>
+    }
+
+    public Distributor isEnabled(Boolean isEnabled) {
+<span class="nc" id="L85">        this.setIsEnabled(isEnabled);</span>
+<span class="nc" id="L86">        return this;</span>
+    }
+
+    public void setIsEnabled(Boolean isEnabled) {
+<span class="nc" id="L90">        this.isEnabled = isEnabled;</span>
+<span class="nc" id="L91">    }</span>
+
+    public Set&lt;Product&gt; getProducts() {
+<span class="nc" id="L94">        return this.products;</span>
+    }
+
+    public void setProducts(Set&lt;Product&gt; products) {
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (this.products != null) {</span>
+<span class="nc" id="L99">            this.products.forEach(i -&gt; i.setDistributor(null));</span>
+        }
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (products != null) {</span>
+<span class="nc" id="L102">            products.forEach(i -&gt; i.setDistributor(this));</span>
+        }
+<span class="nc" id="L104">        this.products = products;</span>
+<span class="nc" id="L105">    }</span>
+
+    public Distributor products(Set&lt;Product&gt; products) {
+<span class="nc" id="L108">        this.setProducts(products);</span>
+<span class="nc" id="L109">        return this;</span>
+    }
+
+    public Distributor addProducts(Product product) {
+<span class="nc" id="L113">        this.products.add(product);</span>
+<span class="nc" id="L114">        product.setDistributor(this);</span>
+<span class="nc" id="L115">        return this;</span>
+    }
+
+    public Distributor removeProducts(Product product) {
+<span class="nc" id="L119">        this.products.remove(product);</span>
+<span class="nc" id="L120">        product.setDistributor(null);</span>
+<span class="nc" id="L121">        return this;</span>
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if (this == o) {</span>
+<span class="nc" id="L129">            return true;</span>
+        }
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (!(o instanceof Distributor)) {</span>
+<span class="fc" id="L132">            return false;</span>
+        }
+<span class="fc bfc" id="L134" title="All 4 branches covered.">        return id != null &amp;&amp; id.equals(((Distributor) o).id);</span>
+    }
+
+    @Override
+    public int hashCode() {
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+<span class="fc" id="L140">        return getClass().hashCode();</span>
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+<span class="fc" id="L146">        return &quot;Distributor{&quot; +</span>
+<span class="fc" id="L147">            &quot;id=&quot; + getId() +</span>
+<span class="fc" id="L148">            &quot;, name='&quot; + getName() + &quot;'&quot; +</span>
+<span class="fc" id="L149">            &quot;, description='&quot; + getDescription() + &quot;'&quot; +</span>
+<span class="fc" id="L150">            &quot;, isEnabled='&quot; + getIsEnabled() + &quot;'&quot; +</span>
+            &quot;}&quot;;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

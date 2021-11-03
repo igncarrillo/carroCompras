@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DistributorDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Products</a> &gt; <a href="index.source.html" class="el_package">ar.edu.um.products.service.dto</a> &gt; <span class="el_source">DistributorDTO.java</span></div><h1>DistributorDTO.java</h1><pre class="source lang-java linenums">package ar.edu.um.products.service.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
+import java.util.Objects;
+import javax.validation.constraints.*;
+
+/**
+ * A DTO for the {@link ar.edu.um.products.domain.Distributor} entity.
+ */
+<span class="fc" id="L12">public class DistributorDTO implements Serializable {</span>
+
+    private Long id;
+
+    @NotBlank(message = &quot;product name cannot be empty&quot;)
+    private String name;
+
+    private String description;
+
+    @NotNull(message = &quot;isEnabled must be a valid boolean&quot;)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Boolean isEnabled;
+
+    public Long getId() {
+<span class="fc" id="L26">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="fc" id="L30">        this.id = id;</span>
+<span class="fc" id="L31">    }</span>
+
+    public String getName() {
+<span class="fc" id="L34">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L38">        this.name = name;</span>
+<span class="nc" id="L39">    }</span>
+
+    public String getDescription() {
+<span class="fc" id="L42">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="nc" id="L46">        this.description = description;</span>
+<span class="nc" id="L47">    }</span>
+
+    public Boolean getIsEnabled() {
+<span class="fc" id="L50">        return isEnabled;</span>
+    }
+
+    public void setIsEnabled(Boolean isEnabled) {
+<span class="nc" id="L54">        this.isEnabled = isEnabled;</span>
+<span class="nc" id="L55">    }</span>
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (this == o) {</span>
+<span class="nc" id="L60">            return true;</span>
+        }
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (!(o instanceof DistributorDTO)) {</span>
+<span class="fc" id="L63">            return false;</span>
+        }
+
+<span class="fc" id="L66">        DistributorDTO distributorDTO = (DistributorDTO) o;</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (this.id == null) {</span>
+<span class="fc" id="L68">            return false;</span>
+        }
+<span class="fc" id="L70">        return Objects.equals(this.id, distributorDTO.id);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L75">        return Objects.hash(this.id);</span>
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+<span class="fc" id="L81">        return &quot;DistributorDTO{&quot; +</span>
+<span class="fc" id="L82">            &quot;id=&quot; + getId() +</span>
+<span class="fc" id="L83">            &quot;, name='&quot; + getName() + &quot;'&quot; +</span>
+<span class="fc" id="L84">            &quot;, description='&quot; + getDescription() + &quot;'&quot; +</span>
+<span class="fc" id="L85">            &quot;, isEnabled='&quot; + getIsEnabled() + &quot;'&quot; +</span>
+            &quot;}&quot;;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
