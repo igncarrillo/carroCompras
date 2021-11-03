@@ -1,0 +1,8 @@
+{
+  "generator-jhipster:7.3.1": {
+    "promptValues": {
+      "packageName": "ar.edu.um.cart",
+      "nativeLanguage": "es"
+    }
+  }
+}
