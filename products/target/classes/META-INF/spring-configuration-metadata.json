@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "application",
+      "type": "ar.edu.um.products.config.ApplicationProperties",
+      "sourceType": "ar.edu.um.products.config.ApplicationProperties"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

@@ -1,0 +1,21 @@
+entity Product {
+	name String required
+    description String
+    price Float min(0) required
+    soldQuantity Integer
+    isEnabled Boolean required
+}
+
+entity Distributor {
+	name String required
+    description String
+    isEnabled Boolean required
+}
+
+relationship OneToMany {
+  Distributor{products} to Product{distributor}
+}
+
+
+dto * with mapstruct
+service * with serviceImpl
