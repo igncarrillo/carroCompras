@@ -1,4 +1,4 @@
 .idea/
 cart/target/
 products/target/
-target/
+target/*
