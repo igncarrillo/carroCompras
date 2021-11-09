@@ -4,13 +4,6 @@ import ar.edu.um.products.repository.ProductRepository;
 import ar.edu.um.products.service.ProductService;
 import ar.edu.um.products.service.dto.ProductDTO;
 import ar.edu.um.products.web.rest.errors.BadRequestAlertException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,11 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 /**
  * REST controller for managing {@link ar.edu.um.products.domain.Product}.
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ProductResource {
 
     private final Logger log = LoggerFactory.getLogger(ProductResource.class);
