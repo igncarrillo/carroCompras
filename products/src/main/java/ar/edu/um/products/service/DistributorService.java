@@ -45,4 +45,19 @@ public interface DistributorService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Disable the "id" distributor.
+     *
+     * @param id the id of the entity.
+     * @return the persisted entity.
+     */
+    DistributorDTO disable(Long id);
+
+    /**
+     * Get all the enabled distributors.
+     *
+     * @return the list of entities.
+     */
+    List<DistributorDTO> findAllEnabled();
 }

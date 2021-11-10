@@ -1,17 +1,20 @@
 package ar.edu.um.products.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 
 /**
  * A Distributor.
  */
 @Entity
 @Table(name = "distributor")
+@Proxy(lazy=false)
 public class Distributor implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -4,13 +4,6 @@ import ar.edu.um.products.repository.DistributorRepository;
 import ar.edu.um.products.service.DistributorService;
 import ar.edu.um.products.service.dto.DistributorDTO;
 import ar.edu.um.products.web.rest.errors.BadRequestAlertException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * REST controller for managing {@link ar.edu.um.products.domain.Distributor}.
@@ -74,7 +75,7 @@ public class DistributorResource {
      */
     @PutMapping("/distributors/{id}")
     public ResponseEntity<DistributorDTO> updateDistributor(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "id") final Long id,
         @Valid @RequestBody DistributorDTO distributorDTO
     ) throws URISyntaxException {
         log.debug("REST request to update Distributor : {}, {}", id, distributorDTO);
@@ -109,7 +110,7 @@ public class DistributorResource {
      */
     @PatchMapping(value = "/distributors/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<DistributorDTO> partialUpdateDistributor(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "id") final Long id,
         @NotNull @RequestBody DistributorDTO distributorDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update Distributor partially : {}, {}", id, distributorDTO);
@@ -138,7 +139,11 @@ public class DistributorResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of distributors in body.
      */
     @GetMapping("/distributors")
-    public List<DistributorDTO> getAllDistributors() {
+    public List<DistributorDTO> getAllDistributors(@RequestParam(required = false) Boolean enabled) {
+        if(enabled!= null && enabled){
+            log.debug("REST request to get all enabled Distributors");
+            return distributorService.findAllEnabled();
+        }
         log.debug("REST request to get all Distributors");
         return distributorService.findAll();
     }
@@ -170,5 +175,31 @@ public class DistributorResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code PUT  /distributors/:id/disable} : Disable an existing distributor.
+     *
+     * @param id the id of the distributorDTO to disable.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated distributorDTO,
+     * or with status {@code 500 (Internal Server Error)} if the distributorDTO couldn't be disabled.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/distributors/{id}/disable")
+    public ResponseEntity<DistributorDTO> disableDistributor(
+        @PathVariable(value = "id") final Long id) throws URISyntaxException {
+        log.debug("REST request to disable Distributor : {}", id);
+        if (!distributorRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+        if (!distributorRepository.getById(id).getIsEnabled()){
+            throw new BadRequestAlertException("Already disabled", ENTITY_NAME, "id_already_disabled");
+        }
+
+        DistributorDTO result = distributorService.disable(id);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 }

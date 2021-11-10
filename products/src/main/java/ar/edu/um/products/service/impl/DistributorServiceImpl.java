@@ -5,14 +5,15 @@ import ar.edu.um.products.repository.DistributorRepository;
 import ar.edu.um.products.service.DistributorService;
 import ar.edu.um.products.service.dto.DistributorDTO;
 import ar.edu.um.products.service.mapper.DistributorMapper;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link Distributor}.
@@ -73,5 +74,21 @@ public class DistributorServiceImpl implements DistributorService {
     public void delete(Long id) {
         log.debug("Request to delete Distributor : {}", id);
         distributorRepository.deleteById(id);
+    }
+
+    @Override
+    public DistributorDTO disable(Long id) {
+        log.debug("Request to disable Distributor : {}", id);
+        Distributor distributor = distributorRepository.getById(id);
+        distributor.setIsEnabled(false);
+        distributor = distributorRepository.save(distributor);
+        return distributorMapper.toDto(distributor);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DistributorDTO> findAllEnabled() {
+        log.debug("Request to get all enabled Distributors");
+        return distributorRepository.findAllByIsEnabledTrue().stream().map(distributorMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 }

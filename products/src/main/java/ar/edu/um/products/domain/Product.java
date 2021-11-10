@@ -1,6 +1,7 @@
 package ar.edu.um.products.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "product")
+@Proxy(lazy=false)
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +36,7 @@ public class Product implements Serializable {
     private Float price;
 
     @Column(name = "sold_quantity")
-    private Integer soldQuantity;
+    private Integer soldQuantity = 0;
 
     @NotNull
     @Column(name = "is_enabled", nullable = false)

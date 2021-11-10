@@ -1,10 +1,12 @@
 package ar.edu.um.products.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link ar.edu.um.products.domain.Distributor} entity.
@@ -16,6 +18,7 @@ public class DistributorDTO implements Serializable {
     @NotBlank(message = "product name cannot be empty")
     private String name;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String description;
 
     @NotNull(message = "isEnabled must be a valid boolean")
@@ -82,7 +85,6 @@ public class DistributorDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", isEnabled='" + getIsEnabled() + "'" +
             "}";
     }
 }
