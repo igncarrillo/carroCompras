@@ -25,7 +25,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin("*")
 public class ProductResource {
 
     private final Logger log = LoggerFactory.getLogger(ProductResource.class);
@@ -139,6 +139,7 @@ public class ProductResource {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
+    @CrossOrigin("*")
     @GetMapping("/products")
     public List<ProductDTO> getAllProducts() {
         log.debug("REST request to get all Products");
