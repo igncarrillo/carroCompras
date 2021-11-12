@@ -1,6 +1,7 @@
 package ar.edu.um.products.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class Product implements Serializable {
     private Float price;
 
     @Column(name = "sold_quantity")
+    @ColumnDefault("0")
     private Integer soldQuantity = 0;
 
     @NotNull

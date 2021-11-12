@@ -1,8 +1,6 @@
 package ar.edu.um.products.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
@@ -13,6 +11,9 @@ import java.util.Objects;
 /**
  * A DTO for the {@link ar.edu.um.products.domain.Product} entity.
  */
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id")
 public class ProductDTO implements Serializable {
 
     private Long id;
@@ -28,7 +29,7 @@ public class ProductDTO implements Serializable {
     private Float price;
 
     @JsonIgnore
-    private Integer soldQuantity;
+    private int soldQuantity;
 
     @NotNull(message = "isEnabled must be a valid boolean")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

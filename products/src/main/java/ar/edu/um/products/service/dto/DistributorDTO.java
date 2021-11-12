@@ -11,6 +11,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link ar.edu.um.products.domain.Distributor} entity.
  */
+
 public class DistributorDTO implements Serializable {
 
     private Long id;

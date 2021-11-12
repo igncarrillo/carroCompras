@@ -5,14 +5,15 @@ import ar.edu.um.products.repository.ProductRepository;
 import ar.edu.um.products.service.ProductService;
 import ar.edu.um.products.service.dto.ProductDTO;
 import ar.edu.um.products.service.mapper.ProductMapper;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link Product}.
@@ -36,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO save(ProductDTO productDTO) {
         log.debug("Request to save Product : {}", productDTO);
         Product product = productMapper.toEntity(productDTO);
+        product.soldQuantity(0);
         product = productRepository.save(product);
         return productMapper.toDto(product);
     }
@@ -73,5 +75,21 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) {
         log.debug("Request to delete Product : {}", id);
         productRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProductDTO> findAllEnabled() {
+        log.debug("Request to get all enabled Products");
+        return productRepository.findAllByIsEnabledTrue().stream().map(productMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    public ProductDTO disable(Long id) {
+        log.debug("Request to disable Product : {}", id);
+        Product product = productRepository.getById(id);
+        product.setIsEnabled(false);
+        product = productRepository.save(product);
+        return productMapper.toDto(product);
     }
 }

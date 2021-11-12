@@ -139,9 +139,12 @@ public class ProductResource {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
-    @CrossOrigin("*")
     @GetMapping("/products")
-    public List<ProductDTO> getAllProducts() {
+    public List<ProductDTO> getAllProducts(@RequestParam(required = false) Boolean enabled) {
+        if(enabled!= null && enabled){
+            log.debug("REST request to get all enabled Products");
+            return productService.findAllEnabled();
+        }
         log.debug("REST request to get all Products");
         return productService.findAll();
     }
@@ -173,5 +176,31 @@ public class ProductResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code PUT  /products/:id/disable} : Disable an existing product.
+     *
+     * @param id the id of the productDTO to disable.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productDTO,
+     * or with status {@code 500 (Internal Server Error)} if the productDTO couldn't be disabled.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/products/{id}/disable")
+    public ResponseEntity<ProductDTO> disableProduct(
+        @PathVariable(value = "id") final Long id) throws URISyntaxException {
+        log.debug("REST request to disable Product : {}", id);
+        if (!productRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+        if (!productRepository.getById(id).getIsEnabled()){
+            throw new BadRequestAlertException("Already disabled", ENTITY_NAME, "id_already_disabled");
+        }
+
+        ProductDTO result = productService.disable(id);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 }
