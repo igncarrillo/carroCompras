@@ -20,6 +20,7 @@ const Login = () => {
                 });
             const content = await response.json();
             window.sessionStorage.setItem("token_product", content.id_token);
+            
             /*const respuesta = await fetch('http://localhost:8081/api/authenticate', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},

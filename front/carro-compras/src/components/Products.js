@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 
-const Productos = () => {
+const Products = () => {
     const [contenido, setcontenido] = useState([])
     const productos = async () =>{
         const token = window.sessionStorage.getItem("token_product")
@@ -30,7 +30,10 @@ const Productos = () => {
                         {
                             contenido.map(item =>
                                 <li key={item.id} className='list-group-item'>
-                                    {item.name}{item.description}
+                                    {item.name}
+                                    {item.description}
+                                    {item.price}
+                                    
                                 </li>
                                 )
                         }
@@ -42,4 +45,4 @@ const Productos = () => {
     )
 }
 
-export default Productos
+export default Products

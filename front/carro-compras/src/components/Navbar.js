@@ -1,14 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Menu = () => {
+const Navbar = () => {
     return (
         <div>
             <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
                 <ul className='navbar-nav mr-auto'>
-                    <li className='nav-item'>
-                        <Link className='nav-link' to='/'>Inicio</Link>
-                    </li>
                     <li className='nav-item'>
                         <Link className='nav-link' to='/login'>Login</Link>
                     </li>
@@ -16,10 +13,10 @@ const Menu = () => {
                         <Link className='nav-link' to='/admin'>Admin</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className='nav-link' to='/productos'>Productos</Link>
+                        <Link className='nav-link' to='/productos'>Home</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className='nav-link' to='/carro'>Carro</Link>
+                        <Link className='nav-link' to='/carro'>Cart</Link>
                     </li>
                 </ul>
             </nav>
@@ -27,4 +24,4 @@ const Menu = () => {
     )
 }
 
-export default Menu
+export default Navbar

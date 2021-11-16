@@ -7,10 +7,32 @@ import {
 } from "../reducers/carroReducer";
 import CarroItems from './CarroItems';
 import ProductoItem from './ProductoItem';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Cart = () => {
-    const [state, dispatch] = useReducer(carroReducer, shoppingInitialState);
 
+  const [contenido, setcontenido] = useState([])
+  const productos = async () =>{
+      const token = window.sessionStorage.getItem("token_product")
+      const response = await fetch('http://localhost:8080/api/products?enabled=true', {
+              method: 'GET',
+              headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
+              credentials: 'include',
+              });
+      const content = await response.json();
+      console.log(content)
+      setcontenido(content)
+
+  }
+
+  useEffect(() => {
+    productos()
+}, [])
+
+  const [state, dispatch] = useReducer(carroReducer, shoppingInitialState);
+
+  state.products = contenido
   const { products, cart } = state;
 
   const addToCart = (id) => {
