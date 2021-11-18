@@ -13,7 +13,7 @@ entity Distributor {
 }
 
 relationship OneToMany {
-  Distributor{products} to Product{distributor}
+  Distributor{products} to Product{distributor required}
 }
 
 
