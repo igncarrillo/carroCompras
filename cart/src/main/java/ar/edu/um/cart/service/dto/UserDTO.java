@@ -1,6 +1,7 @@
 package ar.edu.um.cart.service.dto;
 
 import ar.edu.um.cart.domain.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * A DTO representing a user, with only the public attributes.
@@ -9,6 +10,7 @@ public class UserDTO {
 
     private Long id;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String login;
 
     public UserDTO() {

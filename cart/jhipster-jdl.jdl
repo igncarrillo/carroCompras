@@ -1,0 +1,31 @@
+entity PurchasedProduct {
+	name String required
+    description String
+    price Float min(0) required
+    quantity Integer required
+    idProduct Long required
+}
+
+entity Sale {
+    date LocalDate required
+    total Float
+}
+
+entity Cart {
+    total Float
+}
+relationship OneToMany {
+    Cart{products} to PurchasedProduct{cart required}
+    Sale{products} to PurchasedProduct{sale}
+}
+relationship ManyToOne{
+    Sale{user required} to User{sales}
+}
+
+relationship OneToOne {
+    Cart{user required} to User{cart}
+}
+
+
+dto * with mapstruct
+service * with serviceImpl
