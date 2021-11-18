@@ -1,9 +1,17 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 
-const ProductoItem = ({ data, addToCart }) => {
-  let { id, name, price, description } = data;
 
+// const [products, setproducts] = useState("");
+
+const handleClick = ({id, name, price, description})=>{
+  console.log(id, name, price, description)
+}
+
+const products = []
+const ProductoItem = ({ data}) => {
+  let { id, name, price, description } = data;
+  
   return (
       <div
         className="card border-dark bg-secondary"
@@ -23,13 +31,17 @@ const ProductoItem = ({ data, addToCart }) => {
             to="/"
             className="btn-floating halfway-fab waves-effect waves-light red"
             onClick={() => {
-              this.handleClick(id);
+              handleClick(data);
+              products.push(data)
+              
             }}
           >
             <a href="#" className="btn btn-primary">
               Añadir al carro
             </a>
+          
           </span>
+          <Inicializer items={products}/>
         </div>
       </div>
   );

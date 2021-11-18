@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import ProductoItem from "./ProductoItem";
+//import ProductoItem from "./ProductoItem";
 import "bootstrap/dist/css/bootstrap.css";
 
 const Products = () => {
@@ -27,20 +27,55 @@ const Products = () => {
     productos();
   }, []);
 
+  let products = []
+  const handleClick = () => {
+
+    console.log(products)
+  }
+
   return (
     <div>
       <h2 className="text-center">Productos</h2>
       <hr />
       {/* <div className="row"> */}
       {/* <div className="col"> */}
-      <h2>Listado de productos</h2>
+      <h2>Lista de productos</h2>
       {/* <ul className="list-group"> */}
 
           <div className="row" style={{marginInline: "auto"}}>
       {contenido.map(
         (item) => (
           <div className="col ">
-              <ProductoItem data={item} />
+             <div
+        className="card border-dark bg-secondary"
+        style={{  height: "15rem",marginBottom: "1rem" }}
+        key={item.id}
+      >
+        <div className="card-body text-center">
+          {/* <img src={""} /> */}
+          <span className="card-title">{item.name}</span>
+          <div className="card-text">
+            <p>{item.description}</p>
+            <p>
+              <b>Precio: ${item.price}</b>
+            </p>
+          </div>
+          <span
+            to="/"
+            className="btn-floating halfway-fab waves-effect waves-light red"
+            onClick={() => {
+              products.push(item)
+              handleClick ()
+              
+            }}
+          >
+            <a href="#" className="btn btn-primary">
+              Añadir al carro
+            </a>
+          
+          </span>
+        </div>
+      </div>
               </div>
               ))}
             

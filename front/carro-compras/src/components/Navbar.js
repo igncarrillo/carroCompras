@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
 const Navbar = () => {
   return (
+    
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <h2 className="text-center" style={{color: "white", position: "absolute", left: "40vw", right: "40vw"}}>Tunuyork Market</h2>
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="/login">
+            <Link className="nav-link" to="/">
               Login
             </Link>
           </li>
@@ -18,7 +20,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/productos">
+            <Link className="nav-link" to="/products">
               Home
             </Link>
           </li>
@@ -28,7 +30,7 @@ const Navbar = () => {
             <Link
               className="bi bi-cart2"
               style={{ fontSize: "2rem", color: "white", marginRight: "6rem" }}
-              to="/carro"
+              to="/cart"
             ></Link>
           </li>
         </ul>

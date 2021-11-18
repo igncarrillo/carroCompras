@@ -1,6 +1,8 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, requiere } from 'react'
 import { Redirect } from 'react-router'
+import "bootstrap/dist/css/bootstrap.css";
+
 
 const Login = () => {
     const [username, setusername] = useState('')
@@ -35,32 +37,40 @@ const Login = () => {
         }
     }
     
+    
     return (
+
         <div className='row mt-5'>
             <div className='col'></div>
             <div className='col'>
+
+            <img src="./logo.png" class="img-fluid" alt="Logo"></img>
+
                 <form onSubmit={RegistrarUsuario} className='form-group'>
+                    <label>
+                    Usuario:
                     <input
-                        value={username}
-                        onChange={(e) => {setusername(e.target.value)}}
-                        className='form-control'
-                        placeholder='Introduce el usuario'
-                        type='text'/>
+                        name=""            
+                        type="text"
+                        checked={username}
+                        onChange={(e) => {setusername(e.target.value)}} />
+                    </label>
+                    <br />
+                    <label>
+                    Contraseña:
                     <input
+                        name="password"            
+                        type="password"
                         value={password}
-                        onChange={(e) => {setpassword(e.target.value)}}
-                        className='form-control mt-4'
-                        placeholder='Introduce la contraseña'
-                        type='password'/>
-                    <input
-                        className='btn btn-block btn-dark mt-4'
-                        placeholder='Registrar Usuario'
-                        type='submit'/>
+                        onChange={(e) => {setpassword(e.target.value)}} />
+
+                    <input type="submit" name="Login" value="Login"/>
+                    </label>
                 </form>
                 {
                     redirect !== false ?
                     (
-                        <Redirect to='/productos'/>
+                        <Redirect to='/products'/>
                     ):
                     (
                         <span></span>
